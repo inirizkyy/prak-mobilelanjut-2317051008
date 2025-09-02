@@ -6,7 +6,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Hallo Nama Saya Muhammad Rizky Pratama'),
+            const Text('Hallo Nama Saya Muhammad Rizky Pratama NPM Saya 2317051008'),
           ],
         ),
       ),
