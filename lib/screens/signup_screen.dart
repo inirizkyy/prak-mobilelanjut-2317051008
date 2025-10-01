@@ -28,18 +28,14 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     Widget requiredLabel(String text) => Row(
           children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 13),
-            ),
-            const Text(
-              ' *',
-              style: TextStyle(color: Colors.red, fontSize: 13),
-            ),
+            Text(text, style: const TextStyle(fontSize: 13)),
+            const Text('*',
+                style: TextStyle(color: Colors.red, fontSize: 13)),
           ],
         );
 
-    Widget primaryButton(String label, VoidCallback onTap) => GestureDetector(
+    Widget primaryButton(String label, VoidCallback onTap) => 
+        GestureDetector(
           onTap: onTap,
           child: Container(
             width: double.infinity,
@@ -48,10 +44,7 @@ class _SignupScreenState extends State<SignupScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(28),
               gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF1E88FF),
-                  Color(0xFF207DFF),
-                ],
+                colors: [Color(0xFF1E88FF), Color(0xFF207DFF)],
               ),
               boxShadow: [
                 BoxShadow(
@@ -80,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/logo-mola.png',
+                  'assets/logo_mola.png',
                   height: 80,
                   fit: BoxFit.contain,
                 ),
@@ -91,7 +84,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Sign Up Now and Unlock the Power of Justduit',
+                      'Sign Up Now and Unlock the Power of Justduit!',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -163,34 +156,53 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       const SizedBox(height: 16),
 
-                      primaryButton('Continue', () {
-                        // Tampilkan snackbar sukses
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Sign up success')),
-                        );
-
-                        // Pindah ke Sign In
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          LoginScreen.route, // '/signin'
-                          (route) => false, // hapus semua route sebelumnya
-                        );
+                      // Primary button sesuai gambar
+                      primaryButton('Sign Up Now', () {
+                        if (_name.text.isEmpty ||
+                            _email.text.isEmpty ||
+                            _pass.text.isEmpty ||
+                            _confirm.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Semua field wajib diisi!'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else if (_pass.text != _confirm.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Password tidak sama!'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Sign up success'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            LoginScreen.route,
+                            (route) => false,
+                          );
+                        }
                       }),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 12),
 
-                Center(
-                  child: TextButton(
-                    onPressed: () => Navigator.pushReplacementNamed(
-                      context,
-                      LoginScreen.route,
-                    ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 13),
-                    ),
+                      const SizedBox(height: 12),
+
+                      Center(
+                        child: TextButton(
+                          onPressed: () => Navigator.pushReplacementNamed(
+                              context, LoginScreen.route),
+                          child: const Text(
+                            'Already have an account? Sign In',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
